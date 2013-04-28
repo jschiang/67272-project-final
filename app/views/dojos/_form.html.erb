@@ -1,0 +1,17 @@
+<%= simple_form_for @dojo, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Dojo</legend>
+		
+		<%= f.input :name %>
+		<%= f.input :city %>
+		<%= f.input :state %>
+		<%= f.input :street, :as => "Street Address" %>
+		<%= f.input :zip, :as => "Zip Code" %>
+		<%= f.input :active %>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', dojos_path, :class => 'btn' %>
+    </div>
+  </fieldset>
+<% end %>
