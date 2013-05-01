@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="span7">
+	<div class="span12">
 	  <% if @tournaments.empty? %>
 	    <p><em>No tournaments currently in the system.</em></p>
 	  <% else %>
@@ -8,6 +8,8 @@
         <thead>
           <tr>
             <th width="250">Name</th>
+            <th class="centered">Date</th> 
+            <th class="centered">Ranks</th>
       			<th class="centered">Active</th>
             <th class="centered">&nbsp;</th>
           </tr>
@@ -16,6 +18,21 @@
           <% @tournaments.each do |tournament| %>
             <tr>
               <td><%= link_to tournament.name, tournament_path(tournament) %></td>
+              <td width="150"><%= tournament.date%>
+              <td width="250">
+
+              <% if tournament.min_rank == tournament.max_rank %>
+                <%= tournament.min_rank %>
+              <% elsif tournament.max_rank == nil%>2
+                <%= "#{rank_name(tournament.min_rank)} and up"%>
+              <% elsif tournament.min_rank == nil %>
+                <%= "#{rank_name(tournament.max_rank)} and under"%>
+              <% else %> 
+                <%= rank_name(tournament.min_rank) %> - <%= rank_name(tournament.max_rank)%>
+              <%end%> 
+
+              </td>
+
               <td class="centered"><%= tournament.active ? "Yes" : "No" %></td>
       				<td class="centered">
                 <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_tournament_path(tournament), :class => 'btn btn-mini' %>
@@ -30,4 +47,4 @@
 	</div>
 </div>
 
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Tournament"), new_tournament_path, :class => 'btn btn-primary', :id => 'Create Section' %>
+<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Tournament"), new_tournament_path, :class => 'btn btn-primary', :id => 'Create tournament' %>

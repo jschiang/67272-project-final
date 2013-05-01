@@ -1,14 +1,80 @@
 <div class="row">
-	<div class="span8">
+	<div class="span6">
 		<h3>Tournament Details</h3>
 		<p>
       <b>Name:</b> <%= @tournament.name %>
     </p>
 
     <p>
+      <b>Ranks:</b> 
+      <% if @tournament.min_rank == @tournament.max_rank %>
+        <%= @tournament.min_rank %>
+      <% elsif @tournament.max_rank == nil%>2
+        <%= "#{rank_name(@tournament.min_rank)} and up"%>
+      <% elsif @tournament.min_rank == nil %>
+        <%= "#{rank_name(@tournament.max_rank)} and under"%>
+      <% else %> 
+        <%= rank_name(@tournament.min_rank) %> - <%= rank_name(@tournament.max_rank)%>
+      <%end%> 
+    </p>
+
+    <p>
       <b>Active:</b> <%= @tournament.active ? "Yes" : "No" %>
     </p>
 	</div>
+
+  <div class="span5">
+    <table class="table table-striped">
+      <tr><h4>Sections</h4><tr>
+
+      <% if @sections.empty? %>
+        None at this time
+
+      <% else%>
+        <tr>
+          <th>Event</th>
+          <th>Rank(s)</th>
+          <th>Age(s)</th>   
+        </tr>
+
+        <% @sections.each do |section| %>
+
+        <tr>
+          <td><%= link_to section.event.name, section%></td>
+          <td>
+            <% if section.min_rank == section.max_rank %>
+              <%= section.min_rank %>
+            <% elsif section.max_rank == nil%>2
+              <%= "#{rank_name(section.min_rank)} and up"%>
+            <% elsif section.min_rank == nil %>
+              <%= "#{rank_name(section.max_rank)} and under"%>
+            <% else %> 
+              <%= rank_name(section.min_rank) %> - <%= rank_name(section.max_rank)%>
+            <%end%> 
+          </td>
+          <td>
+            <% if section.min_age == section.max_age %>
+              <%= section.min_age %>
+            <% elsif section.max_age == nil%>
+              <%= "#{section.min_age} and up"%>
+            <% elsif section.min_age == nil %>
+              <%= "#{section.max_age} and under"%>
+            <%else%>
+              <%= section.min_age %> - <%= section.max_age%>
+            <%end%>
+          </td>
+        </tr>
+
+        <%end%>
+      <%end%>  
+    </table>  
+
+    <div class="digg_pagination">
+      <div clas="page_info">
+        <%= page_entries_info @sections %>
+      </div>
+      <%= will_paginate @sections, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+    </div>
 </div>
 
 <div class="form-actions">
