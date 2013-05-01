@@ -4,9 +4,9 @@
 		
 		<%= f.input :name %>
 		<%= f.input :city %>
-		<%= f.input :state %>
-		<%= f.input :street, :as => "Street Address" %>
-		<%= f.input :zip, :as => "Zip Code" %>
+		<%= f.input :state, :collection => Dojo::STATES_LIST  %>
+		<%= f.input :street %>
+		<%= f.input :zip %>
 		<%= f.input :active %>
 
     <div class="form-actions">

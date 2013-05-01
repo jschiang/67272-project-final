@@ -6,7 +6,7 @@
       <tr>
         <th>Name</th>
   			<th>City</th>
-  			<th>State</th>
+        <th>Members</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -14,8 +14,8 @@
       <% @dojos.each do |dojo| %>
         <tr>
           <td><%= link_to dojo.name, dojo_path(dojo) %></td>
-          <td><%= dojo.city  %></td>
-          <td><%= dojo.state  %></td>
+          <td><%= dojo.city + ", " + dojo.state  %></td>
+          <td><%= dojo.students.all.size %></td>
   				<td>
             <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_dojo_path(dojo), :class => 'btn btn-mini' %>
           </td>
