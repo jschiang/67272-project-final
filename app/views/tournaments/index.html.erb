@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="span7">
+	  <% if @tournaments.empty? %>
+	    <p><em>No tournaments currently in the system.</em></p>
+	  <% else %>
+		  <h3>List of Tournaments</h3>
+		  <table class="table table-striped">
+        <thead>
+          <tr>
+            <th width="250">Name</th>
+      			<th class="centered">Active</th>
+            <th class="centered">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tournaments.each do |tournament| %>
+            <tr>
+              <td><%= link_to tournament.name, tournament_path(tournament) %></td>
+              <td class="centered"><%= tournament.active ? "Yes" : "No" %></td>
+      				<td class="centered">
+                <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_tournament_path(tournament), :class => 'btn btn-mini' %>
+                &nbsp;
+                <%= link_to raw("<i class='icon-remove icon-white'></i> Destroy"), tournament_path(tournament), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+		<% end %>
+	</div>
+</div>
+
+<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Tournament"), new_tournament_path, :class => 'btn btn-primary', :id => 'Create Section' %>
