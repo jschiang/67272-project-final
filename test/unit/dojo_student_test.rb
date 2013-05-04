@@ -94,5 +94,17 @@ class DojoStudentTest < ActiveSupport::TestCase
       assert_equal Date.today, @ted_dojo.end_date
       move_ted_to_cmu.delete
     end
+
+    should "have a scope to filter by student" do
+      assert_equal 2, DojoStudent.for_student(@ted.id).size
+      assert_equal 1, DojoStudent.for_student(@ed.id).size
+      assert_equal 0, DojoStudent.for_student(@julie.id).size
+    end
+
+    should "have a scope to filter by Dojo" do
+      assert_equal 3, DojoStudent.for_dojo(@north.id).size
+      assert_equal 2, DojoStudent.for_dojo(@cmu.id).size
+      assert_equal 0, DojoStudent.for_dojo(@sqhill.id).size
+    end
   end
 end

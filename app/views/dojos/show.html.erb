@@ -15,40 +15,47 @@
       <p>
         <b>Active:</b> <%= @dojo.active ? "Yes" : "No" %>
       </p>
+
+      <br>
+      <%= render :partial => "assign_dojo_student" %>
+
   	</div>
 
-  <div class="span5">
-    <table class="table table-striped">
-      <tr><h4>Current Members</h4><tr>
+    <div class="span6">
+      <table class="table table-striped">
+        <tr><h4>Current Members</h4><tr>
 
-      <% if @dojo_students.empty? %>
-        None at this time
+        <% if @dojo_students.empty? %>
+          None at this time
 
-      <% else%>
-        <tr>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Rank</th>   
-        </tr>
+        <% else%>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Rank</th>   
+            <th></th>
+          </tr>
 
-        <% @dojo_students.each do |ds| %>
+          <% @dojo_students.each do |ds| %>
 
-        <tr>
-          <td><%= link_to ds.student.name, ds.student%></td>
-          <td><%= ds.student.age%></td>
-          <td><%= rank_name(ds.student.rank)%></td>
-        </tr>
+          <tr>
+            <td><%= link_to ds.student.name, ds.student%></td>
+            <td><%= ds.student.age%></td>
+            <td><%= rank_name(ds.student.rank)%></td>
+            <td><%= link_to raw("<i class='icon-remove'></i>"), dojo_student_path(ds), :method => 'delete', :confirm => 'Are you sure?' %>
+          </tr>
 
-        <%end%>
-      <%end%>  
-    </table>
+          <%end%>
+        <%end%>  
+      </table>
 
-    <div class="digg_pagination">
-      <div clas="page_info">
-        <%= page_entries_info @dojo_students %>
+      <div class="digg_pagination">
+        <div clas="page_info">
+          <%= page_entries_info @dojo_students %>
+        </div>
+        <%= will_paginate @dojo_students, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
       </div>
-      <%= will_paginate @dojo_students, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
-    </div>
+
   </div>
 </div>
 

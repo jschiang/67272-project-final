@@ -13,6 +13,8 @@ class DojoStudent < ActiveRecord::Base
   scope :by_dojo, joins(:dojo).order('name')
   scope :by_student, joins(:student).order('last_name, first_name')
   scope :chronological, order('start_date DESC, end_date DESC')
+  scope :for_student, lambda {|student_id| where("student_id = ?", student_id) }
+  scope :for_dojo, lambda {|dojo_id| where("dojo_id = ?", dojo_id)}
   
   # Validations
   validates_numericality_of :dojo_id, :only_integer => true, :greater_than => 0
