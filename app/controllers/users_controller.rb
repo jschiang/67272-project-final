@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   
-  before_filter :check_login
-  authorize_resource
-
+  
   def index
   end
 
@@ -23,7 +21,6 @@ class UsersController < ApplicationController
       else
         redirect_to students_path
       end
-    end
   end
 
   def create

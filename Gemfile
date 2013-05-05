@@ -9,6 +9,7 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'simple_form', '2.0.4'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'geocoder', '1.1.6'
+gem 'cancan', '1.6.9'
 
 # Gems used only in testing
 group :test do
