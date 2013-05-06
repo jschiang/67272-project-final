@@ -32,6 +32,13 @@ class Dojo < ActiveRecord::Base
   before_destroy :check_if_destroyable
   after_rollback :deactivate_dojo_logic
 
+  def create_map_link(zoom=13,width=500,height=500)
+    markers = ""; i = 1
+    markers += "&markers=color:red%7Ccolor:red%7Clabel:#{i}%7C#{latitude},#{longitude}"
+
+    map = "http://maps.google.com/maps/api/staticmap?center= #{latitude},#{longitude}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
+  end
+
   private
   def check_if_destroyable
     if self.dojo_students.empty?
@@ -67,4 +74,5 @@ class Dojo < ActiveRecord::Base
     end
     coord
   end
+
 end
