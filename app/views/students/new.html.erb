@@ -13,9 +13,6 @@
 				<%= student_form.simple_fields_for :user do |user_form| %>
 					<%= render :partial => "user_fields", :locals => {:f => user_form} %>
 				<% end %> 
-				<p>
-					<%= student_form.link_to_add(raw("<i class='icon-plus icon-white'></i> Add User"), :user, :class => 'btn btn-mini btn-primary') %>
-				</p>
 				
 			</div> <!-- end of project_tasks div -->
 		</div>

@@ -3,3 +3,5 @@ A&M Karate School App :: 67-272
 Notes:
 
 The assign dojo students form in the dojo show page breaks a cucumber test in level_6 because the drop down list has all of the names in the system. Therefore, in the tests Gruberman, Ed does show up and this fails the test and skips three more.
+
+Commented out the 'student_is_active_in_system' validation because it was causing an infinite loop when trying to create a 'user' from the nested form in the new student page. This causes one unit test to fail in user_test.rb
