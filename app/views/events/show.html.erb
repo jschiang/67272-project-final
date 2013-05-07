@@ -13,6 +13,8 @@
 
 <div class="form-actions">
   <%= link_to raw("<i class='icon-list'></i> Display All Events"), events_path, :class => 'btn'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit Event"), edit_event_path(@event), :class => 'btn' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Event"), event_path(@event), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <% if can? :update, @event %>
+    <%= link_to raw("<i class='icon-pencil'></i> Edit Event"), edit_event_path(@event), :class => 'btn' %>&nbsp;&nbsp;
+    <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Event"), event_path(@event), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <%end%>
 </div>

@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
 
+  before_filter :check_login, :except => [:index, :show]
+
   def index
     @events = Event.alphabetical.paginate(:page => params[:page]).per_page(8)
     @inactive_events = Event.inactive.alphabetical.paginate(:page => params[:page]).per_page(8)
@@ -11,10 +13,12 @@ class EventsController < ApplicationController
   
   def new
     @event = Event.new
+    authorize! :new, @event
   end
 
   def edit
     @event = Event.find(params[:id])
+    authorize! :edit, @event
   end
 
   def create
@@ -41,6 +45,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
+    authorize! :destroy, @event
     @event.destroy
     flash[:notice] = "Successfully removed #{@event.name} from karate tournament system"
     redirect_to events_url
