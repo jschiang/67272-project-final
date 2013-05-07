@@ -33,6 +33,19 @@ module ApplicationHelper
       "Senior Master"
     end
   end
+
+  def final_standing_name(place)
+    case 
+    when place == 1
+      "First Place"
+    when place == 2
+      "Second Place"
+    when place == 3
+      "Third Place"
+    else
+      "Did not place"
+    end
+  end
   
   def eligible_students_for_section(section)
     # I want students between a set of ranks, between a set of ages, who are active and have the list arranged in alphabetical order.

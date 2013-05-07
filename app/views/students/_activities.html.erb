@@ -9,9 +9,15 @@
     <% @registrations.each do |registration| %>
       <tr>
         <td><%= link_to registration.event.name, section_path(registration.section.id) %></td>
-				<td class="centered">
-				  --
-				</td>
+        <% if registration.section.tournament.active %>
+  				<td class="centered">
+  				  --
+  				</td>
+        <%else %>
+          <td>
+            <%= final_standing_name(registration.final_standing)%>
+          </td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>

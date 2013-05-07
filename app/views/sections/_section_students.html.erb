@@ -9,6 +9,9 @@
         <th>Name</th>
   			<th>Rank</th>
   			<th>Age</th>
+        <% if @section.tournament.active != true %>
+          <th>Final Standing</th>
+        <%end%>
   			<th>&nbsp;</th>
       </tr>
     </thead>
@@ -18,8 +21,16 @@
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= rank_name(student.rank)  %></td>
           <td class="centered"><%= student.age %></td>
+          <%if @section.tournament.active != true %>
+            <%registration = Registration.for_student(student.id).for_section(@section.id).first %>
+            <td><%= final_standing_name(registration.final_standing)%></td>
+          <%end%>
           <%if can? :update, student %>
-            <td><%= link_to raw("<i class='icon-remove'></i>"), registration_path(Registration.for_student(student.id).for_section(@section.id).first), :method => 'delete', :confirm => 'Are you sure?' %>
+            <%if @section.tournament.active%>
+              <td><%= link_to raw("<i class='icon-remove'></i>"), registration_path(Registration.for_student(student.id).for_section(@section.id).first), :method => 'delete', :confirm => 'Are you sure?' %>
+            <%else%>
+              <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_registration_path(Registration.for_student(student.id).for_section(@section.id).first), :class => 'btn btn-mini' %>
+            <%end%>
           <%end%>
         </tr>
       <% end %>
