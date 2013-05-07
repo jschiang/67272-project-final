@@ -34,11 +34,13 @@
               </td>
 
               <td class="centered"><%= tournament.active ? "Yes" : "No" %></td>
-      				<td class="centered">
-                <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_tournament_path(tournament), :class => 'btn btn-mini' %>
-                &nbsp;
-                <%= link_to raw("<i class='icon-remove icon-white'></i> Destroy"), tournament_path(tournament), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-              </td>
+              <%if can? :update, tournament%> 
+        				<td class="centered">
+                  <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_tournament_path(tournament), :class => 'btn btn-mini' %>
+                  &nbsp;
+                  <%= link_to raw("<i class='icon-remove icon-white'></i> Destroy"), tournament_path(tournament), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+                </td>
+              <%end%>
             </tr>
           <% end %>
         </tbody>
@@ -47,4 +49,6 @@
 	</div>
 </div>
 
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Tournament"), new_tournament_path, :class => 'btn btn-primary', :id => 'Create tournament' %>
+<%if can? :create, @tournaments.first%>
+  <%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Tournament"), new_tournament_path, :class => 'btn btn-primary', :id => 'Create tournament' %>
+<%end%>

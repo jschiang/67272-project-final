@@ -1,5 +1,7 @@
 class TournamentsController < ApplicationController
 
+  before_filter :check_login
+
   def index
     @tournaments = Tournament.chronological.paginate(:page => params[:page]).per_page(10)
   end
@@ -11,10 +13,12 @@ class TournamentsController < ApplicationController
   
   def new
     @tournament = Tournament.new
+    authorize! :new, @tournament
   end
 
   def edit
     @tournament = Tournament.find(params[:id])
+    authorize! :edit, @tournament
   end
 
   def create
@@ -41,6 +45,7 @@ class TournamentsController < ApplicationController
 
   def destroy
     @tournament = Tournament.find(params[:id])
+    authorize! :destroy, @tournament
     @tournament.destroy
     flash[:notice] = "Successfully removed #{@tournament.name} from karate tournament system"
     redirect_to tournaments_url
