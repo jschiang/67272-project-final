@@ -12,7 +12,13 @@
     <tbody>
       <% @inactive_students.each do |student| %>
         <tr>
-          <td><%= link_to student.name, student_path(student) %></td>
+          <td>
+            <% if can? :read, student%>
+              <%= link_to student.name, student_path(student) %>
+            <%else%>
+              <%= student.name%>
+            <%end%>
+          </td>
           <td><%= rank_name(student.rank)  %></td>
           <td><%= link_to student.tournaments.chronological.first.name, tournament_path(student.tournaments.chronological.first) unless student.tournaments.empty? %></td>
         </tr>

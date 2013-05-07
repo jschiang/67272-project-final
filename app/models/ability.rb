@@ -19,6 +19,14 @@ class Ability
       can :update, User do |u|  
         u.id == user.id
       end
+
+      can :update, Student do |s|
+        s.id == user.student_id
+      end
+
+      can :read, Student do |s|
+        s.id == user.student_id
+      end
     end
       
     #   # they can read their own projects' data

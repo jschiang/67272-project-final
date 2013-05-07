@@ -13,11 +13,19 @@
     <tbody>
       <% @students.each do |student| %>
         <tr>
-          <td><%= link_to student.name, student_path(student) %></td>
+          <td>
+            <% if can? :read, student%>
+              <%= link_to student.name, student_path(student) %>
+            <%else%>
+              <%= student.name%>
+            <%end%>
+          </td>
           <td><%= student.date_of_birth.nil? ? "---" : student.age  %></td>
           <td><%= rank_name(student.rank)  %></td>
   				<td>
-            <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %>
+            <%if can? :update, student%>
+              <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %>
+            <%end%>
           </td>
         </tr>
       <% end %>

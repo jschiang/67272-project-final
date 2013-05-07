@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_filter :check_login
 
   def index
     @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
@@ -7,17 +8,20 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
+    authorize! :show, @student
     # @dojo_history = @student.dojo_students.chronological.all
     @registrations = @student.registrations.by_event_name.paginate(:page => params[:page]).per_page(10)
   end
   
   def new
     @student = Student.new
+    authorize! :new, @student
     @student.build_user
   end
 
   def edit
     @student = Student.find(params[:id])
+    authorize! :edit, @student
     if @student.user != nil
       @user = @student.user
     else
@@ -49,6 +53,7 @@ class StudentsController < ApplicationController
 
   def destroy
     @student = Student.find(params[:id])
+    authorize! :destroy, @student
     @student.destroy
     flash[:notice] = "Successfully removed #{@student.proper_name} from karate tournament system"
     redirect_to students_url
