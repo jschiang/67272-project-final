@@ -9,12 +9,16 @@
 	  <h3>Students Registered</h3>
 		<%= render :partial => "section_students" %>
 		<!-- <br /> -->
+		<%if can? :update, @secion %>
 		<%= render :partial => "quick_register_student_for_section" %>
+		<%end%>
 	</div>
 </div>
 
 <div class="form-actions">
   <%= link_to raw("<i class='icon-list'></i> Display All Sections"), sections_path, :class => 'btn'  %>&nbsp;&nbsp;
+  <% if can? :update, @section%>
   <%= link_to raw("<i class='icon-pencil'></i> Edit Section"), edit_section_path(@section), :class => 'btn' %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Section"), section_path(@section), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <% end%>
 </div>

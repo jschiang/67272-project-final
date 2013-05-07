@@ -8,5 +8,6 @@
 		<%# render :partial => "select_tournament" %>
 	</div>
 </div>
-
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Section"), new_section_path, :class => 'btn btn-primary', :id => 'Create Section' %>
+<%if can? :create, @sections.first%>
+	<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Section"), new_section_path, :class => 'btn btn-primary', :id => 'Create Section' %>
+<%end%>
