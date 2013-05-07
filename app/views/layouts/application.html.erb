@@ -21,7 +21,9 @@
               Welcome, <%= link_to current_user.email, user_path(current_user) %> | 
               <%= link_to "Logout", logout_path %>
             </p>
-        <% end %>
+          <%else%>
+            <p class="ident pull-right"><%= link_to "Login", login_path %></p>
+          <% end %>
   	    </div>
 
         
