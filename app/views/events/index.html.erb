@@ -32,4 +32,6 @@
 	</div>
 </div>
 
+<%if can? :create, @events.first %>
 <%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Event"), new_event_path, :class => 'btn btn-primary', :id => 'Create Section' %>
+<%end%>
