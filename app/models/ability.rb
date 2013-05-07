@@ -19,17 +19,18 @@ class Ability
       can :update, User do |u|  
         u.id == user.id
       end
+    end
       
-      # they can read their own projects' data
-      can :read, Project do |this_project|  
-        my_projects = user.projects.map{|p| p.id}
-        my_projects.include? this_project.id 
-      end
-      # they can create new registrations for themselves
-      can :create, Registration
+    #   # they can read their own projects' data
+    #   can :read, Project do |this_project|  
+    #     my_projects = user.projects.map{|p| p.id}
+    #     my_projects.include? this_project.id 
+    #   end
+    #   # they can create new registrations for themselves
+    #   can :create, Registration
       
-      # they can update the project only if they are the manager (creator)
-      can :update, Registration
+    #   # they can update the project only if they are the manager (creator)
+    #   can :update, Registration
             
     #   # they can read tasks in these projects
     #   can :read, Task do |this_task|  
