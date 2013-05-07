@@ -1,24 +1,35 @@
 <div class="row">
-	<div class="span8">
-	  <h2>Welcome to A &amp; M Karate Tournaments</h2>
-	  <p>
-	   This is the admin page for  A &amp; M Karate Tournaments, hosted by the 
-	    A &amp; M Karate School. There is not much to do here yet (more coming...), 
-	    so take some time to read our fine lorem ipsum text below.
-	  </p>
-		<p>
-		  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed 
-			do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-			nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-			culpa qui officia deserunt mollit anim id est laborum.
-		</p>
+	<h2>Welcome back <%= @student.first_name %></h2>
+	<div class="span3">
+		<h3>Student Details</h3>
+		<%= render :partial => "student_details" %>
+	</div>
+	<div class="span5">
+	  <h3>Tournament Activity</h3>
+	  <% if @registrations.empty?%>
+	  	<p>
+	  		You have no tournament activity
+	  	</p>
+	  <%else%>
+			<%= render :partial => "activities" unless @registrations.empty? %>
+		<%end%>
 	</div>
 	<div class="span4">
-		<div class="well">
-		  picture here
-		</div>
-	</div>
+		<h3>Current Dojo</h3>
+		<% if @dojo == nil %>
+			<p>
+				You are not currently assigned to a dojo.
+			</p>
+		<%else%>
+			<p>
+	     <h4> <%= link_to @dojo.name, dojo_path(@dojo) %> </h4>
+	    </p>
+
+	    <p>
+	      <b>Address:</b><br>
+	      <%= @dojo.street %><br>
+	      <%= @dojo.city + ", " + @dojo.state + " " + @dojo.zip %>
+	    </p>
+	   <%end%>
+   </div>
 </div>

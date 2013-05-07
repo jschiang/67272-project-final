@@ -3,8 +3,8 @@ class HomeController < ApplicationController
     if logged_in?
       # get my dojo
       @student = current_user.student
-      @registrations = current_user.student.registrations
-      
+      @registrations = @student.registrations.by_event_name.paginate(:page => params[:page]).per_page(10)
+      @dojo = @student.current_dojo
     end
   end
 
