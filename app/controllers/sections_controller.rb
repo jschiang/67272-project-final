@@ -1,5 +1,7 @@
 class SectionsController < ApplicationController
 
+  before_filter :check_login
+
   def index
     @sections = Section.alphabetical.paginate(:page => params[:page]).per_page(8) 
   end
@@ -12,10 +14,12 @@ class SectionsController < ApplicationController
   
   def new
     @section = Section.new
+    authorize! :new, @section
   end
 
   def edit
     @section = Section.find(params[:id])
+    authorize! :edit, @section
   end
 
   def create
@@ -42,6 +46,7 @@ class SectionsController < ApplicationController
 
   def destroy
     @section = Section.find(params[:id])
+    authorize! :destroy, @section
     @section.destroy
     flash[:notice] = "Successfully removed #{@section.name} from karate tournament system"
     redirect_to sections_url
