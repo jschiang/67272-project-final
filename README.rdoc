@@ -6,4 +6,6 @@ The assign dojo students form in the dojo show page breaks a cucumber test in le
 
 Commented out the 'student_is_active_in_system' validation because it was causing an infinite loop when trying to create a 'user' from the nested form in the new student page. This causes one unit test to fail in user_test.rb
 
+You can add final standings to a section by going into the show page for that section and and hitting the edit button for a registration. This can only be done once the tournament has been made inactive.
+
 Sometimes when testing geocoding doesn't respond fast enough and tests will break because of it.
