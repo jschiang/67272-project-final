@@ -17,12 +17,16 @@
       </p>
 
       <br>
-      <%= render :partial => "assign_dojo_student" %>
+      <% if can? :update, @dojo %>
+        <%= render :partial => "assign_dojo_student" %>
+      <%end%>
 
       <div class="form-actions">
         <%= link_to raw("<i class='icon-list'></i> Display All Dojos"), dojos_path, :class => 'btn'  %>&nbsp;&nbsp;
-        <%= link_to raw("<i class='icon-pencil'></i> Edit Dojo"), edit_dojo_path(@dojo), :class => 'btn' %>&nbsp;&nbsp;
-        <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Dojo"), dojo_path(@dojo), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+        <% if can? :update, @dojo %>
+          <%= link_to raw("<i class='icon-pencil'></i> Edit Dojo"), edit_dojo_path(@dojo), :class => 'btn' %>&nbsp;&nbsp;
+          <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Dojo"), dojo_path(@dojo), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+        <%end%>
       </div>
 
   	</div>

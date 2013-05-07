@@ -17,7 +17,9 @@
           <td><%= dojo.city + ", " + dojo.state  %></td>
           <td><%= dojo.students.all.size %></td>
   				<td>
-            <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_dojo_path(dojo), :class => 'btn btn-mini' %>
+            <% if can? :update, dojo %>
+              <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_dojo_path(dojo), :class => 'btn btn-mini' %>
+            <%end%>
           </td>
         </tr>
       <% end %>
