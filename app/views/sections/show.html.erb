@@ -9,7 +9,7 @@
 	  <h3>Students Registered</h3>
 		<%= render :partial => "section_students" %>
 		<!-- <br /> -->
-		<%if can? :update, @secion %>
+		<%if can? :update, @section %>
 		<%= render :partial => "quick_register_student_for_section" %>
 		<%end%>
 	</div>
