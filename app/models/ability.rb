@@ -1,41 +1,57 @@
 class Ability
   include CanCan::Ability
-
+  
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
-    user ||= User.new # guest user (not logged in)
+    # set user to new User if not logged in
+    user ||= User.new # i.e., a guest user
+    
+    # set authorizations for different user roles
     if user.role? :admin
+      # they get to do it all
       can :manage, :all
+      
     elsif user.role? :member
-      can :create, Registration do |registration|
-        registration.student_id == user.student_id
+      # they can read their own profile
+      can :show, User do |u|  
+        u.id == user.id
       end
-      can :destroy, Registration do |registration|
-        registration.student_id == user.student_id
+      # they can update their own profile
+      can :update, User do |u|  
+        u.id == user.id
       end
+      
+      # they can read their own projects' data
+      can :read, Project do |this_project|  
+        my_projects = user.projects.map{|p| p.id}
+        my_projects.include? this_project.id 
+      end
+      # they can create new registrations for themselves
+      can :create, Registration
+      
+      # they can update the project only if they are the manager (creator)
+      can :update, Registration
+            
+    #   # they can read tasks in these projects
+    #   can :read, Task do |this_task|  
+    #     project_tasks = user.projects.map{|p| p.tasks.map{|t| t.id}}.flatten
+    #     project_tasks.include? this_task.id 
+    #   end
+      
+    #   # they can update tasks in these projects
+    #   can :update, Task do |this_task|  
+    #     project_tasks = user.projects.map{|p| p.tasks.map{|t| t.id}}.flatten
+    #     project_tasks.include? this_task.id 
+    #   end
+      
+    #   # they can create new tasks for these projects
+    #   can :create, Task do |this_task|  
+    #     my_projects = user.projects.map{|p| p.id}
+    #     my_projects.include? this_task.project_id  
+    #   end
 
-      can :read, :all
-    else
-      can :read, :all
-    end
-    #
-    # The first argument to `can` is the action you are giving the user 
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. 
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/ryanb/cancan/wiki/Defining-Abilities
+    # else
+    #   # guests can only read domains covered (plus home pages)
+    #   can :read, Domain
+    # end
   end
 end
